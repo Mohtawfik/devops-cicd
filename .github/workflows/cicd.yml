@@ -46,3 +46,9 @@ jobs:
         run: |
           docker build -t ${{ secrets.username }}/devops:${{ github.sha }} .
           docker push ${{ secrets.username }}/devops:${{ github.sha }}
+      - name: Deploy Container App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "iamtawfik"
+          publish-profile: ${{ secrets.AZURE }}
+          images: ${{ secrets.username }}/devops:${{ github.sha }}
